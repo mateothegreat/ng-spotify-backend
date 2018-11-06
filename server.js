@@ -18,7 +18,7 @@ app.use(cors()).use(cookieParser());    // Enable cookie & Cross-Origin middlewa
 //
 app.get('/login', function (req, res) {
 
-    const state = 'asdfasdfasdfasdf';
+    const state = randomstring.generate(256);
 
     res.cookie(stateKey, state);
 
