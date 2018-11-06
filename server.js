@@ -1,3 +1,5 @@
+require('dotenv').config(); // Load variables from .env file (for dev)
+
 const express               = require('express');                   // Express web server framework
 const request               = require('request');                   // For making http calls
 const cors                  = require('cors');                      // Enable Cross-Origin Requests
@@ -54,7 +56,7 @@ app.get('/callback', function (req, res) {
         const authOptions = {
 
             url:     'https://accounts.spotify.com/api/token',
-            headers: { 'Authorization': 'Basic ' + (new Buffer(SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET).toString('base64')) },
+            headers: { 'Authorization': 'Basic ' + (Buffer.from(SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET).toString('base64')) },
             json:    true,
 
             form: {
@@ -94,10 +96,11 @@ app.get('/callback', function (req, res) {
                     // Redirect the user back to the frontend application with user info/data
                     //
                     res.redirect(FRONTEND_CALLBACK_URL + '?' + querystring.stringify({
-                                                                                         display_name:  body.display_name,
-                                                                                         email:         body.email,
+
                                                                                          access_token:  access_token,
-                                                                                         refresh_token: refresh_token
+                                                                                         refresh_token: refresh_token,
+                                                                                         display_name:  body.display_name,
+                                                                                         email:         body.email
 
                                                                                      }));
 
@@ -145,6 +148,39 @@ app.get('/refresh_token', function (req, res) {
 
 });
 
+app.get('/search', (req, res) => {
+
+    if (req.query.terms) {
+
+        request.get(getHeaders('search?q=' + req.query.terms + '&type=' + req.query.type, req.query.access_token), (error, response, body) => {
+
+            res.send(body);
+
+        });
+
+    } else {
+
+        res.status(404).send('No terms to search for :(');
+
+    }
+
+});
 app.listen(process.env.PORT);           // Start the express server
 
 console.log('Application Server Started! Listening on port ' + process.env.PORT);
+
+//
+// Functions
+//
+
+function getHeaders(path, access_token) {
+
+    return {
+
+        url:     'https://api.spotify.com/v1/' + path,
+        headers: { 'Authorization': 'Bearer ' + access_token },
+        json:    true
+
+    };
+
+}
