@@ -1,16 +1,24 @@
 {
-  "name": "ng-spotify-backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.16.4"
-  }
+    "name": "ng-spotify-backend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node server.js",
+        "start:dev": "nodemon server.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "cookie-parser": "^1.4.3",
+        "cors": "^2.8.5",
+        "express": "^4.16.4",
+        "querystring": "^0.2.0",
+        "request": "^2.88.0"
+    },
+    "devDependencies": {
+        "nodemon": "^1.18.6"
+    }
 }
