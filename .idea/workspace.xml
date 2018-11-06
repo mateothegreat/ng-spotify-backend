@@ -2,13 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c10f651a-dfb8-470c-be97-fc8034067b2c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -45,14 +38,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="12" />
-          <entry key="js" value="1389" />
+          <entry key="js" value="1393" />
           <entry key="json" value="63" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="63" />
-          <entry key="JavaScript" value="1389" />
+          <entry key="JavaScript" value="1393" />
           <entry key="PLAIN_TEXT" value="12" />
         </counts>
       </usages-collector>
@@ -72,8 +65,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1121">
-              <caret line="173" column="9" lean-forward="true" selection-start-line="173" selection-start-column="9" selection-end-line="173" selection-end-column="9" />
+            <state relative-caret-position="1156">
+              <caret line="181" column="63" selection-start-line="181" selection-start-column="63" selection-end-line="181" selection-end-column="63" />
               <folding>
                 <element signature="e#598#846#0" expanded="true" />
                 <element signature="e#1037#1706#0" expanded="true" />
@@ -87,7 +80,9 @@
                 <element signature="e#2997#3181#0" expanded="true" />
                 <element signature="e#3323#3381#0" expanded="true" />
                 <element signature="e#3858#4271#0" expanded="true" />
+                <element signature="e#4140#4860#0" expanded="true" />
                 <element signature="e#4400#4711#0" expanded="true" />
+                <element signature="e#4634#4856#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -204,12 +199,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1541492121037</updated>
-      <workItem from="1541492123193" duration="5073000" />
+      <workItem from="1541492123193" duration="5105000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5073000" />
+    <option name="totallyTimeSpent" value="5105000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1945" y="23" width="1896" height="2137" extended-state="0" />
@@ -268,8 +263,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1121">
-          <caret line="173" column="9" lean-forward="true" selection-start-line="173" selection-start-column="9" selection-end-line="173" selection-end-column="9" />
+        <state relative-caret-position="1156">
+          <caret line="181" column="63" selection-start-line="181" selection-start-column="63" selection-end-line="181" selection-end-column="63" />
           <folding>
             <element signature="e#598#846#0" expanded="true" />
             <element signature="e#1037#1706#0" expanded="true" />
@@ -283,7 +278,9 @@
             <element signature="e#2997#3181#0" expanded="true" />
             <element signature="e#3323#3381#0" expanded="true" />
             <element signature="e#3858#4271#0" expanded="true" />
+            <element signature="e#4140#4860#0" expanded="true" />
             <element signature="e#4400#4711#0" expanded="true" />
+            <element signature="e#4634#4856#0" expanded="true" />
           </folding>
         </state>
       </provider>
