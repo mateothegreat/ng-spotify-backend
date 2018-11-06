@@ -3,6 +3,7 @@ const request               = require('request');                   // For makin
 const cors                  = require('cors');                      // Enable Cross-Origin Requests
 const querystring           = require('querystring');               // Used for managing query strings (urls)
 const cookieParser          = require('cookie-parser');             // Used for parsing cookies
+const randomstring          = require('randomstring');              // Used for generating random strings
 const app                   = express();                            // Instantiate the web server
 const stateKey              = 'spotify_auth_state';                 // Name used for state between spotify and the user
 const SPOTIFY_CLIENT_ID     = process.env.SPOTIFY_CLIENT_ID;        // Spotify App client id
@@ -10,49 +11,24 @@ const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;    // Sptofy Ap
 const SPOTIFY_CALLBACK_URL  = process.env.SPOTIFY_CALLBACK_URL;     // Spotify redirect uri (after login)
 const FRONTEND_CALLBACK_URL = process.env.FRONTEND_CALLBACK_URL;    // Frontend redirect uri
 
-app.use(cors());                                            // Enable Cross-Origin middleware
-app.use(cookieParser());                                    // Enable cookie middleware
-
-/**
- * Generates a random string containing numbers and letters
- *
- */
-function generateRandomString(length) {
-
-    let text       = '';
-    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-    for (let i = 0; i < length; i++) {
-
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-    }
-
-    return text;
-
-}
-
-
 //
 // Handle /login web requests
 //
 app.get('/login', function (req, res) {
 
-    const state = generateRandomString(16);
+    const state = randomstring.generate(16);
 
     res.cookie(stateKey, state);
 
-    res.redirect('https://accounts.spotify.com/authorize?' +
+    res.redirect('https://accounts.spotify.com/authorize?' + querystring.stringify({
 
-                     querystring.stringify({
+                                                                                       response_type: 'code',
+                                                                                       client_id:     SPOTIFY_CLIENT_ID,
+                                                                                       scope:         'user-read-private user-read-email',
+                                                                                       redirect_uri:  SPOTIFY_CALLBACK_URL,
+                                                                                       state:         state
 
-                                               response_type: 'code',
-                                               client_id:     SPOTIFY_CLIENT_ID,
-                                               scope:         'user-read-private user-read-email',
-                                               redirect_uri:  SPOTIFY_CALLBACK_URL,
-                                               state:         state
-
-                                           }));
+                                                                                   }));
 
 });
 
@@ -67,17 +43,17 @@ app.get('/callback', function (req, res) {
 
     if (state === null || state !== storedState) {
 
-        res.redirect('/#' +
-                         querystring.stringify({
-                                                   error: 'state_mismatch'
-                                               }));
+        res.redirect('/#' + querystring.stringify({ error: 'state_mismatch' }));
+
     } else {
 
         res.clearCookie(stateKey);
 
         const authOptions = {
 
-            url: 'https://accounts.spotify.com/api/token',
+            url:     'https://accounts.spotify.com/api/token',
+            headers: { 'Authorization': 'Basic ' + (new Buffer(SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET).toString('base64')) },
+            json:    true,
 
             form: {
 
@@ -85,15 +61,7 @@ app.get('/callback', function (req, res) {
                 redirect_uri: SPOTIFY_CALLBACK_URL,
                 grant_type:   'authorization_code'
 
-            },
-
-            headers: {
-
-                'Authorization': 'Basic ' + (new Buffer(SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET).toString('base64'))
-
-            },
-
-            json: true
+            }
 
         };
 
@@ -133,7 +101,6 @@ app.get('/callback', function (req, res) {
 
                 });
 
-
             } else {
 
                 res.redirect(FRONTEND_CALLBACK_URL + '?error=' + querystring.stringify({ error: 'invalid_token' }));
@@ -152,7 +119,6 @@ app.get('/callback', function (req, res) {
 //
 app.get('/refresh_token', function (req, res) {
 
-    // requesting access token from refresh token
     const authOptions = {
 
         url:     'https://accounts.spotify.com/api/token',
@@ -177,6 +143,7 @@ app.get('/refresh_token', function (req, res) {
 
 });
 
-app.listen(process.env.PORT);
+app.use(cors()).use(cookieParser());    // Enable cookie & Cross-Origin middleware
+app.listen(process.env.PORT);           // Start the express server
 
 console.log('Application Server Started! Listening on port ' + process.env.PORT);
