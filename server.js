@@ -16,7 +16,7 @@ const FRONTEND_CALLBACK_URL = process.env.FRONTEND_CALLBACK_URL;    // Frontend 
 //
 app.get('/login', function (req, res) {
 
-    const state = randomstring.generate(16);
+    const state = randomstring.generate();
 
     res.cookie(stateKey, state);
 
