@@ -11,6 +11,8 @@ const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;    // Sptofy Ap
 const SPOTIFY_CALLBACK_URL  = process.env.SPOTIFY_CALLBACK_URL;     // Spotify redirect uri (after login)
 const FRONTEND_CALLBACK_URL = process.env.FRONTEND_CALLBACK_URL;    // Frontend redirect uri
 
+app.use(cors()).use(cookieParser());    // Enable cookie & Cross-Origin middleware
+
 //
 // Handle /login web requests
 //
@@ -143,7 +145,6 @@ app.get('/refresh_token', function (req, res) {
 
 });
 
-app.use(cors()).use(cookieParser());    // Enable cookie & Cross-Origin middleware
 app.listen(process.env.PORT);           // Start the express server
 
 console.log('Application Server Started! Listening on port ' + process.env.PORT);
